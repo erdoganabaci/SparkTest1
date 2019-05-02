@@ -3,12 +3,15 @@ package app.sparktest1;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ListView listView ;
     ArrayList<String> playerNameAndSurnameArray;
+    EditText playerFilterEditText;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //to show menu sporcu ekle menüsünü gösteriyoruz inflater ile çıkart menuyü
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView = (ListView) findViewById(R.id.listView);
+        playerFilterEditText = findViewById(R.id.searchFilter);
         //uygulama çalışır çalışmaz database bağlantısı açılsın
         data_source = new SqliteData_Source(this);
         data_source.openDatabase();
@@ -82,6 +87,23 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        playerFilterEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                adapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
 
@@ -90,5 +112,6 @@ public class MainActivity extends AppCompatActivity {
         String tokens[] = word.split("-");
         return tokens[0];
     }
+
 
 }

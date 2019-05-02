@@ -21,6 +21,7 @@ public class Sqlite_Layer extends SQLiteOpenHelper {
 
 
 
+
         private String databaseAttr;
         SqlCommandEnum(String databaseAttr){
             this.databaseAttr = databaseAttr;
