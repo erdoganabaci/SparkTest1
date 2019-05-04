@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SparkTest1</string>
+    <string-array name="ValueType">
+        <item>Boy</item>
+        <item>Kilo</item>
+    </string-array>
 </resources>

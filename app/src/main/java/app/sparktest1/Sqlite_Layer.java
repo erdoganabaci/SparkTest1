@@ -54,6 +54,10 @@ public class Sqlite_Layer extends SQLiteOpenHelper {
                 " VARCHAR,"+SqlCommandEnum.DBPLAYERCLUB.databaseAttr+" VARCHAR,"+SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr+" VARCHAR,"+SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr+
                 " VARCHAR,"+SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr+" VARCHAR," + SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr+" VARCHAR)";
         db.execSQL(sql);
+
+        String sql2 = "CREATE TABLE IF NOT EXISTS periodic (id INTEGER PRIMARY KEY AUTOINCREMENT ,playerdate VARCHAR,playervalue FLOAT ,playerid INTEGER,playervaluetype INTEGER,FOREIGN KEY(playerid) REFERENCES players(id) )";
+        db.execSQL(sql2);
+
     }
 
     @Override
@@ -61,5 +65,6 @@ public class Sqlite_Layer extends SQLiteOpenHelper {
         //will change part !! carefull
         //db.execSQL("DROP TABLE IF EXISTS players");
         db.execSQL("DROP TABLE IF EXISTS "+SqlCommandEnum.DATABASENAME.databaseAttr);
+        db.execSQL("DROP TABLE IF EXISTS periodic");
     }
 }

@@ -1,5 +1,6 @@
 package app.sparktest1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,13 +8,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.List;
 
-public class SportRegister extends AppCompatActivity {
+public class SportRegister extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     EditText sportName;
     EditText sportSurname;
     EditText sportBirthday;
@@ -26,6 +30,7 @@ public class SportRegister extends AppCompatActivity {
     EditText sportWeight;
     Button saveButton;
     Button updateButton;
+    Spinner sportSpinner;
     SqliteData_Source data_source ;
     String getListPlayerNameId;
     int playerIDFromIntent;
@@ -67,6 +72,7 @@ public class SportRegister extends AppCompatActivity {
         sportWeight = findViewById(R.id.SportWeight);
         saveButton = findViewById(R.id.save);
         updateButton = findViewById(R.id.update);
+        sportSpinner = findViewById(R.id.SpinnerPlayer);
         //edittextte içindeki yazıyı boşalt boşalt
         sportName.setText("");
         sportSurname.setText("");
@@ -78,6 +84,10 @@ public class SportRegister extends AppCompatActivity {
         sportCurrentDate.setText("");
         sportHeight.setText("");
         sportWeight.setText("");
+
+        //using spinner function
+        getSpinner(getApplicationContext());
+
         //if you want to query with database you must first open db connection.
         data_source = new SqliteData_Source(this);
         data_source.openDatabase();
@@ -106,7 +116,14 @@ public class SportRegister extends AppCompatActivity {
         data_source = new SqliteData_Source(this);
         data_source.openDatabase();
     }
+    public void getSpinner(Context context){
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.ValueType,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sportSpinner.setAdapter(adapter);
 
+
+        sportSpinner.setOnItemSelectedListener(this);
+    }
     public void save(View view){
         SportPlayer player = new SportPlayer(sportName.getText().toString(),sportSurname.getText().toString()
                 ,sportBirthday.getText().toString(),sportTckNo.getText().toString(),sportPhone.getText().toString(),
@@ -117,6 +134,8 @@ public class SportRegister extends AppCompatActivity {
         data_source.createPlayer(player);
         //data_source.createPlayer(player);
         //when you add player to database change page to mainactivity's listview
+        //dataları periodic tablosuna ekledim.
+        //data_source.periodicCreate();
         Intent intent = new Intent(this,MainActivity.class);
         Toast.makeText(getApplicationContext(),"Database Başarıyla Sporcu Eklendi.",Toast.LENGTH_SHORT).show();
         startActivity(intent);
@@ -167,5 +186,16 @@ public class SportRegister extends AppCompatActivity {
         Intent intent = new Intent(this,MainActivity.class);
         Toast.makeText(getApplicationContext(),"Databaseden Başarıyla Sporcu Silindi.",Toast.LENGTH_SHORT).show();
         startActivity(intent);
+    }
+    //Spinner item select
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

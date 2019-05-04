@@ -57,7 +57,14 @@ public class SqliteData_Source {
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr(),player.getPlayerHeight());
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr(),player.getPlayerWeight());
 
-        db.insert(Sqlite_Layer.SqlCommandEnum.DATABASENAME.databaseAttr(),null,val);
+        //db.insert(Sqlite_Layer.SqlCommandEnum.DATABASENAME.databaseAttr(),null,val); 
+        int dbPlayerId = (int) db.insert(Sqlite_Layer.SqlCommandEnum.DATABASENAME.databaseAttr(),null,val);
+        ContentValues val2 = new ContentValues();
+        val2.put("playerdate","23/07/1997");
+        val2.put("playervalue",180);
+        val2.put("playervaluetype",1);
+        val2.put("playerid",dbPlayerId);
+        db.insert("periodic",null,val2);
 
     }
     public void updatePlayer(SportPlayer player){
@@ -149,6 +156,16 @@ public class SqliteData_Source {
         cursor.close();
         return playerlist;
     }
+    public void periodicCreate(){
+        ContentValues val = new ContentValues();
+        val.put("playerdate","23/07/1997");
+        val.put("playervalue",180);
+        val.put("playervaluetype",1);
+        db.insert("periodic",null,val);
 
+
+
+
+    }
 
 }
