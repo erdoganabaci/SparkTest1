@@ -32,8 +32,8 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
     EditText sportClub;
     EditText sportLicenceNo;
     EditText sportCurrentDate;
-    EditText sportHeight;
-    EditText sportWeight;
+    //EditText sportHeight;
+    //EditText sportWeight;
     EditText sportPeriodicValue;
     Button saveButton;
     Button updateButton;
@@ -77,8 +77,6 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
         sportClub = findViewById(R.id.SportClub);
         sportLicenceNo = findViewById(R.id.SportLicenseNo);
         sportCurrentDate = findViewById(R.id.SportCurrentDate);
-        sportHeight = findViewById(R.id.SportHeight);
-        sportWeight = findViewById(R.id.SportWeight);
         sportPeriodicValue = findViewById(R.id.SportPeriodicValue);
         saveButton = findViewById(R.id.save);
         updateButton = findViewById(R.id.update);
@@ -92,8 +90,8 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
         sportClub.setText("");
         sportLicenceNo.setText("");
         sportCurrentDate.setText("");
-        sportHeight.setText("");
-        sportWeight.setText("");
+        //sportHeight.setText("");
+        //sportWeight.setText("");
         sportPeriodicValue.setText("");
 
         //using spinner function
@@ -150,11 +148,16 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
                 sportClub.getText().toString(),sportLicenceNo.getText().toString(),sportCurrentDate.getText().toString(),
                 sportHeight.getText().toString(),sportWeight.getText().toString(),sportPeriodicValue.getText().toString(),spinnerPosition.toString());
                 */
+       /* SportPlayer player = new SportPlayer(sportName.getText().toString(),sportSurname.getText().toString()
+                ,sportBirthday.getText().toString(),sportTckNo.getText().toString(),sportPhone.getText().toString(),
+                sportClub.getText().toString(),sportLicenceNo.getText().toString(),sportCurrentDate.getText().toString(),
+                sportHeight.getText().toString(),sportWeight.getText().toString(),sportPeriodicValue.getText().toString(),periodicEnumTypeValue.toString());*/
         SportPlayer player = new SportPlayer(sportName.getText().toString(),sportSurname.getText().toString()
                 ,sportBirthday.getText().toString(),sportTckNo.getText().toString(),sportPhone.getText().toString(),
                 sportClub.getText().toString(),sportLicenceNo.getText().toString(),sportCurrentDate.getText().toString(),
-                sportHeight.getText().toString(),sportWeight.getText().toString(),sportPeriodicValue.getText().toString(),periodicEnumTypeValue.toString());
-        SportPlayer playerSingle = new SportPlayer(sportName.getText().toString());
+                sportPeriodicValue.getText().toString(),periodicEnumTypeValue.toString());
+
+       SportPlayer playerSingle = new SportPlayer(sportName.getText().toString());
         System.out.println("player :"+player.getPlayerName());
         data_source.createPlayer(player);
         //data_source.createPlayer(player);
@@ -185,23 +188,29 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
             sportPhone.setText(playerQuery.getPlayerPhone());
             sportClub.setText(playerQuery.getPlayerClub());
             sportLicenceNo.setText(playerQuery.getPlayerLicenseNo());
-            sportCurrentDate.setText(playerQuery.getPlayerCurrentDate());
-            sportHeight.setText(playerQuery.getPlayerHeight());
-            sportWeight.setText(playerQuery.getPlayerWeight());
+            //sportCurrentDate.setText(playerQuery.getPlayerCurrentDate());  güncel tarihi periyodik tablosundan çekicez.
+            //sportHeight.setText(playerQuery.getPlayerHeight());
+            //sportWeight.setText(playerQuery.getPlayerWeight());
 
         }
         List<SportPlayer> periodicPlayer = data_source.queryPeriodicWithId(id);
         for (SportPlayer periodicSinglePlayers : periodicPlayer){
             sportSpinner.setSelection(Integer.parseInt(periodicSinglePlayers.getPlayerPeriodicValueType()));
             sportPeriodicValue.setText(periodicSinglePlayers.getPlayerPeriodicValue());
+            sportCurrentDate.setText(periodicSinglePlayers.getPlayerCurrentDate());
         }
     }
 
     public void playerUpdate(){
+        /*SportPlayer playerUpdate = new SportPlayer(sportName.getText().toString(),sportSurname.getText().toString()
+                ,sportBirthday.getText().toString(),sportTckNo.getText().toString(),sportPhone.getText().toString(),
+                sportClub.getText().toString(),sportLicenceNo.getText().toString(),sportCurrentDate.getText().toString(),
+                sportHeight.getText().toString(),sportWeight.getText().toString(),sportPeriodicValue.getText().toString(),spinnerPosition.toString());*/
+
         SportPlayer playerUpdate = new SportPlayer(sportName.getText().toString(),sportSurname.getText().toString()
                 ,sportBirthday.getText().toString(),sportTckNo.getText().toString(),sportPhone.getText().toString(),
                 sportClub.getText().toString(),sportLicenceNo.getText().toString(),sportCurrentDate.getText().toString(),
-                sportHeight.getText().toString(),sportWeight.getText().toString(),sportPeriodicValue.getText().toString(),spinnerPosition.toString());
+                sportPeriodicValue.getText().toString(),spinnerPosition.toString());
         //update için sorgulama ama databasede eklenen id ile yapıyoruz.
         playerUpdate.setPlayerId(playerIDFromIntent);
         data_source.updatePlayer(playerUpdate);

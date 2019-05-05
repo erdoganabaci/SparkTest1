@@ -17,8 +17,9 @@ public class Sqlite_Layer extends SQLiteOpenHelper {
         DBPLAYERCLUB("playerclub"),
         DBPLAYERLISENCENO("playerlicenseno"),
         DBPLAYERCURRENTDATE("playercurrentdate"),
+        /*
         DBPLAYERHEIGHT("playerheight"),
-        DBPLAYERWEIGHT("playerweight"),
+        DBPLAYERWEIGHT("playerweight"),*/
 
         DATABASEPERIODICNAME("periodic"),
         DBPERIODICID("id"),
@@ -58,11 +59,16 @@ public class Sqlite_Layer extends SQLiteOpenHelper {
                 "playerweight VARCHAR)";*/
        // db.execSQL(sql);
         //Enumarate ile database stringini getirdim reusability açısından daha sağlıklı ve constant değişmiyor.
-        String sql = "CREATE TABLE IF NOT EXISTS "+ SqlCommandEnum.DATABASENAME.databaseAttr+"("+SqlCommandEnum.DBPLAYERID.databaseAttr+" INTEGER PRIMARY KEY AUTOINCREMENT , "
+        /*String sql = "CREATE TABLE IF NOT EXISTS "+ SqlCommandEnum.DATABASENAME.databaseAttr+"("+SqlCommandEnum.DBPLAYERID.databaseAttr+" INTEGER PRIMARY KEY AUTOINCREMENT , "
                 +SqlCommandEnum.DBPLAYERNAME.databaseAttr+" VARCHAR NOT NULL, "+SqlCommandEnum.DBPLAYERSURNAME.databaseAttr+" VARCHAR  , "+SqlCommandEnum.DBPLAYERBIRTHDAY.databaseAttr+
                 " VARCHAR,"+SqlCommandEnum.DBPLAYERTCKNO.databaseAttr+" VARCHAR," + SqlCommandEnum.DBPLAYERPHONE.databaseAttr+
                 " VARCHAR,"+SqlCommandEnum.DBPLAYERCLUB.databaseAttr+" VARCHAR,"+SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr+" VARCHAR,"+SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr+
-                " VARCHAR,"+SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr+" VARCHAR," + SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr+" VARCHAR)";
+                " VARCHAR,"+SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr+" VARCHAR," + SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr+" VARCHAR)";*/
+       //player tablosundan weight ile boy kolonu çıkarıldı bide current date de çıkarıldı
+        String sql = "CREATE TABLE IF NOT EXISTS "+ SqlCommandEnum.DATABASENAME.databaseAttr+"("+SqlCommandEnum.DBPLAYERID.databaseAttr+" INTEGER PRIMARY KEY AUTOINCREMENT , "
+                +SqlCommandEnum.DBPLAYERNAME.databaseAttr+" VARCHAR NOT NULL, "+SqlCommandEnum.DBPLAYERSURNAME.databaseAttr+" VARCHAR  , "+SqlCommandEnum.DBPLAYERBIRTHDAY.databaseAttr+
+                " VARCHAR,"+SqlCommandEnum.DBPLAYERTCKNO.databaseAttr+" VARCHAR," + SqlCommandEnum.DBPLAYERPHONE.databaseAttr+
+                " VARCHAR,"+SqlCommandEnum.DBPLAYERCLUB.databaseAttr+" VARCHAR,"+SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr+" VARCHAR)";
         db.execSQL(sql);
 
         //String sql2 = "CREATE TABLE IF NOT EXISTS periodic (id INTEGER PRIMARY KEY AUTOINCREMENT ,playerdate VARCHAR,playervalue FLOAT ,playerid INTEGER,playervaluetype INTEGER,FOREIGN KEY(playerid) REFERENCES players(id) )";

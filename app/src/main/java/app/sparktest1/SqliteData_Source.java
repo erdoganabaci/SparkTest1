@@ -54,9 +54,9 @@ public class SqliteData_Source {
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERPHONE.databaseAttr(),player.getPlayerPhone());
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERCLUB.databaseAttr(),player.getPlayerClub());
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr(),player.getPlayerLicenseNo());
-        val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr(),player.getPlayerCurrentDate());
-        val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr(),player.getPlayerHeight());
-        val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr(),player.getPlayerWeight());
+        //val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr(),player.getPlayerCurrentDate());
+       // val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr(),player.getPlayerHeight());
+        //val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr(),player.getPlayerWeight());
 
         //db.insert(Sqlite_Layer.SqlCommandEnum.DATABASENAME.databaseAttr(),null,val);
         int dbPlayerId = (int) db.insert(Sqlite_Layer.SqlCommandEnum.DATABASENAME.databaseAttr(),null,val);
@@ -90,8 +90,8 @@ public class SqliteData_Source {
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr(),player.getPlayerLicenseNo());
         //güncel zamanı sadece periodic tablosuna ekliyoruz
        // val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr(),player.getPlayerCurrentDate());
-        val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr(),player.getPlayerHeight());
-        val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr(),player.getPlayerWeight());
+        //val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr(),player.getPlayerHeight());
+        //val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr(),player.getPlayerWeight());
         //update player id's rows
         db.update(Sqlite_Layer.SqlCommandEnum.DATABASENAME.databaseAttr(),val,Sqlite_Layer.SqlCommandEnum.DBPLAYERID.databaseAttr()+"="+player.getPlayerId(),null);
         //güncellleme yaparken periodic tablosuna insert edicez.Çünkü periodic tablosuna devamlı kayıt eklenicek sorgulamada max date olanı çekicez.
@@ -106,7 +106,8 @@ public class SqliteData_Source {
         val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICVALUE.databaseAttr(),Float.parseFloat(player.getPlayerPeriodicValue()));
         val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICVALUETYPE.databaseAttr(),Integer.parseInt(player.getPlayerPeriodicValueType()));
         val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICPLAYERID.databaseAttr(),player.getPlayerId());
-        db.insert("periodic",null,val2);
+        //db.insert("periodic",null,val2);
+        db.insert(Sqlite_Layer.SqlCommandEnum.DATABASEPERIODICNAME.databaseAttr(),null,val2);
 
 
     }
@@ -120,10 +121,15 @@ public class SqliteData_Source {
     public List<SportPlayer> queryPlayerwithId(int id){
         /*String playerColumns [] = {"id","playername","playersurname","playerbirthday",
                 "playertckno","playerphone","playerclub","playerlicenseno","playercurrentdate","playerheight","playerweight"};*/
-        String playerColumns [] = {Sqlite_Layer.SqlCommandEnum.DBPLAYERID.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERNAME.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERSURNAME.databaseAttr()
+      /*  String playerColumns [] = {Sqlite_Layer.SqlCommandEnum.DBPLAYERID.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERNAME.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERSURNAME.databaseAttr()
                 ,Sqlite_Layer.SqlCommandEnum.DBPLAYERBIRTHDAY.databaseAttr(), Sqlite_Layer.SqlCommandEnum.DBPLAYERTCKNO.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERPHONE.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERCLUB.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr(),
-                Sqlite_Layer.SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr()};
-        List<SportPlayer> playerQueryList = new ArrayList<SportPlayer>();
+                Sqlite_Layer.SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr()}; */
+
+        String playerColumns [] = {Sqlite_Layer.SqlCommandEnum.DBPLAYERID.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERNAME.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERSURNAME.databaseAttr()
+                ,Sqlite_Layer.SqlCommandEnum.DBPLAYERBIRTHDAY.databaseAttr(), Sqlite_Layer.SqlCommandEnum.DBPLAYERTCKNO.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERPHONE.databaseAttr(),
+                Sqlite_Layer.SqlCommandEnum.DBPLAYERCLUB.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr()};
+
+      List<SportPlayer> playerQueryList = new ArrayList<SportPlayer>();
         //Cursor cursor = db.query(Sqlite_Layer.SqlCommandEnum.DATABASENAME.databaseAttr(),playerColumns,"id="+id,null,null,null,null);
         Cursor cursor = db.query(Sqlite_Layer.SqlCommandEnum.DATABASENAME.databaseAttr(),playerColumns,Sqlite_Layer.SqlCommandEnum.DBPLAYERID.databaseAttr()+"="+id,null,null,null,null);
 
@@ -137,12 +143,15 @@ public class SqliteData_Source {
             String playerPhone =cursor.getString(5) ;
             String playerClub =cursor.getString(6) ;
             String playerLicenseNo =cursor.getString(7) ;
-            String playerCurrentData =cursor.getString(8) ;
-            String playerHeight =cursor.getString(9) ;
-            String playerWeight =cursor.getString(10) ;
+            //String playerCurrentData =cursor.getString(8) ;
+            //String playerHeight =cursor.getString(9) ;
+            //String playerWeight =cursor.getString(10) ;
+
+           /* SportPlayer player = new SportPlayer(playerId,playerName,playerSurname,playerBirthday,playerTckNo,
+                    playerPhone,playerClub,playerLicenseNo,playerCurrentData,playerHeight,playerWeight);*/
 
             SportPlayer player = new SportPlayer(playerId,playerName,playerSurname,playerBirthday,playerTckNo,
-                    playerPhone,playerClub,playerLicenseNo,playerCurrentData,playerHeight,playerWeight);
+                    playerPhone,playerClub,playerLicenseNo);
 
             playerQueryList.add(player);
             cursor.moveToNext();
@@ -181,10 +190,16 @@ public class SqliteData_Source {
     public List<SportPlayer> listPlayer(){
         /*String playerColumns [] = {"id","playername","playersurname","playerbirthday",
                 "playertckno","playerphone","playerclub","playerlicenseno","playercurrentdate","playerheight","playerweight"};*/
-        String playerColumns [] = {Sqlite_Layer.SqlCommandEnum.DBPLAYERID.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERNAME.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERSURNAME.databaseAttr()
+        //arama yaparken player kolonundaki boy kilo ve sporcu güncellencek tarik yani currentdate çıkardım
+       /* String playerColumns [] = {Sqlite_Layer.SqlCommandEnum.DBPLAYERID.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERNAME.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERSURNAME.databaseAttr()
                 ,Sqlite_Layer.SqlCommandEnum.DBPLAYERBIRTHDAY.databaseAttr(), Sqlite_Layer.SqlCommandEnum.DBPLAYERTCKNO.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERPHONE.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERCLUB.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr(),
-                Sqlite_Layer.SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr()};
-        List<SportPlayer> playerQueryList = new ArrayList<SportPlayer>();
+                Sqlite_Layer.SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr()}; */
+
+        String playerColumns [] = {Sqlite_Layer.SqlCommandEnum.DBPLAYERID.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERNAME.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERSURNAME.databaseAttr()
+                ,Sqlite_Layer.SqlCommandEnum.DBPLAYERBIRTHDAY.databaseAttr(), Sqlite_Layer.SqlCommandEnum.DBPLAYERTCKNO.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERPHONE.databaseAttr(),
+                Sqlite_Layer.SqlCommandEnum.DBPLAYERCLUB.databaseAttr(),Sqlite_Layer.SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr()};
+
+        //List<SportPlayer> playerQueryList = new ArrayList<SportPlayer>();
         List<SportPlayer> playerlist = new ArrayList<SportPlayer>();
         Cursor cursor = db.query(Sqlite_Layer.SqlCommandEnum.DATABASENAME.databaseAttr(),playerColumns,null,null,null,null,null);
         cursor.moveToFirst();

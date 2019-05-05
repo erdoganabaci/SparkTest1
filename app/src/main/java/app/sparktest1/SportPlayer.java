@@ -43,7 +43,19 @@ public class SportPlayer {
         this.playerCurrentDate = playerCurrentDate;
         this.playerHeight = playerHeight;
         this.playerWeight = playerWeight;
+
     }
+    public SportPlayer(int playerId, String playerName, String playerSurname, String playerBirthday, String playerTckNo, String playerPhone, String playerClub, String playerLicenseNo) {
+        this.playerId = playerId;
+        this.playerName = playerName;
+        this.playerSurname = playerSurname;
+        this.playerBirthday = playerBirthday;
+        this.playerTckNo = playerTckNo;
+        this.playerPhone = playerPhone;
+        this.playerClub = playerClub;
+        this.playerLicenseNo = playerLicenseNo;
+    }
+    /*
     public SportPlayer(String playerName, String playerSurname, String playerBirthday, String playerTckNo, String playerPhone, String playerClub, String playerLicenseNo, String playerCurrentDate, String playerHeight, String playerWeight) {
         this.playerName = playerName;
         this.playerSurname = playerSurname;
@@ -56,7 +68,7 @@ public class SportPlayer {
         this.playerHeight = playerHeight;
         this.playerWeight = playerWeight;
 
-    }
+    } */
     public SportPlayer(String playerName, String playerSurname, String playerBirthday, String playerTckNo, String playerPhone, String playerClub, String playerLicenseNo, String playerCurrentDate, String playerHeight, String playerWeight,String playerPeriodicValue,String  playerPeriodicValueType) {
         this.playerName = playerName;
         this.playerSurname = playerSurname;
@@ -71,6 +83,19 @@ public class SportPlayer {
         this.playerPeriodicValue = playerPeriodicValue;
         this.playerPeriodicValueType =  playerPeriodicValueType;
     }
+    public SportPlayer(String playerName, String playerSurname, String playerBirthday, String playerTckNo, String playerPhone, String playerClub, String playerLicenseNo, String playerCurrentDate,String playerPeriodicValue,String  playerPeriodicValueType) {
+        this.playerName = playerName;
+        this.playerSurname = playerSurname;
+        this.playerBirthday = playerBirthday;
+        this.playerTckNo = playerTckNo;
+        this.playerPhone = playerPhone;
+        this.playerClub = playerClub;
+        this.playerLicenseNo = playerLicenseNo;
+        this.playerCurrentDate = playerCurrentDate;
+        this.playerPeriodicValue = playerPeriodicValue;
+        this.playerPeriodicValueType =  playerPeriodicValueType;
+    }
+
 
     public SportPlayer(String playerName,String playerSurname ,int playerId){
         this.playerName = playerName;
