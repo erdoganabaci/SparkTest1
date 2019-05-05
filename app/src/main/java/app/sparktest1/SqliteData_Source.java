@@ -88,7 +88,8 @@ public class SqliteData_Source {
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERPHONE.databaseAttr(),player.getPlayerPhone());
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERCLUB.databaseAttr(),player.getPlayerClub());
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr(),player.getPlayerLicenseNo());
-        val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr(),player.getPlayerCurrentDate());
+        //güncel zamanı sadece periodic tablosuna ekliyoruz
+       // val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr(),player.getPlayerCurrentDate());
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr(),player.getPlayerHeight());
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr(),player.getPlayerWeight());
         //update player id's rows

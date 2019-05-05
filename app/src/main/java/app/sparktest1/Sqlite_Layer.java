@@ -18,8 +18,17 @@ public class Sqlite_Layer extends SQLiteOpenHelper {
         DBPLAYERLISENCENO("playerlicenseno"),
         DBPLAYERCURRENTDATE("playercurrentdate"),
         DBPLAYERHEIGHT("playerheight"),
-        DBPLAYERWEIGHT("playerweight");
+        DBPLAYERWEIGHT("playerweight"),
 
+        DATABASEPERIODICNAME("periodic"),
+        DBPERIODICID("id"),
+        DBPERIODICDATE("playerdate"),
+        DBPERIODICVALUE("playervalue"),
+        DBPERIODICPLAYERID("playerid"),
+        DBPERIODICVALUETYPE("playervaluetype");
+
+
+        //String periodicColumns [] = {"id","playerdate","playervalue","playerid","playervaluetype"};
 
 
 
@@ -56,7 +65,10 @@ public class Sqlite_Layer extends SQLiteOpenHelper {
                 " VARCHAR,"+SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr+" VARCHAR," + SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr+" VARCHAR)";
         db.execSQL(sql);
 
-        String sql2 = "CREATE TABLE IF NOT EXISTS periodic (id INTEGER PRIMARY KEY AUTOINCREMENT ,playerdate VARCHAR,playervalue FLOAT ,playerid INTEGER,playervaluetype INTEGER,FOREIGN KEY(playerid) REFERENCES players(id) )";
+        //String sql2 = "CREATE TABLE IF NOT EXISTS periodic (id INTEGER PRIMARY KEY AUTOINCREMENT ,playerdate VARCHAR,playervalue FLOAT ,playerid INTEGER,playervaluetype INTEGER,FOREIGN KEY(playerid) REFERENCES players(id) )";
+        String sql2 = "CREATE TABLE IF NOT EXISTS "+SqlCommandEnum.DATABASEPERIODICNAME.databaseAttr+" ("+SqlCommandEnum.DBPERIODICID.databaseAttr+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+SqlCommandEnum.DBPERIODICDATE.databaseAttr
+                +" VARCHAR,"+SqlCommandEnum.DBPERIODICVALUE.databaseAttr+" FLOAT ,"+SqlCommandEnum.DBPERIODICPLAYERID.databaseAttr+" INTEGER,"+SqlCommandEnum.DBPERIODICVALUETYPE.databaseAttr
+                +" INTEGER,FOREIGN KEY("+SqlCommandEnum.DBPERIODICPLAYERID.databaseAttr+") REFERENCES "+SqlCommandEnum.DATABASENAME.databaseAttr+"("+SqlCommandEnum.DBPLAYERID.databaseAttr+")"+" )";
         db.execSQL(sql2);
 
     }

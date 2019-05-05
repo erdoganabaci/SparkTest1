@@ -44,6 +44,7 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
     MenuInflater menuInflater;
     String info;
     Integer spinnerPosition;
+    Integer periodicEnumTypeValue;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (info.equalsIgnoreCase("show")){
@@ -135,11 +136,24 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
         sportSpinner.setOnItemSelectedListener(this);
     }
     public void save(View view){
+        if (spinnerPosition == periodicValueType.HEIGHT.ordinal()){
+            //pozisyon 0 sa boy 1 ise kilo olarak atamayı yap burda boy 0 olarak eşleşiyor.
+            periodicEnumTypeValue = periodicValueType.HEIGHT.ordinal();
 
-        SportPlayer player = new SportPlayer(sportName.getText().toString(),sportSurname.getText().toString()
+        }else if (spinnerPosition == periodicValueType.WEIGHT.ordinal()){
+            periodicEnumTypeValue = periodicValueType.WEIGHT.ordinal();
+
+        }
+
+       /* SportPlayer player = new SportPlayer(sportName.getText().toString(),sportSurname.getText().toString()
                 ,sportBirthday.getText().toString(),sportTckNo.getText().toString(),sportPhone.getText().toString(),
                 sportClub.getText().toString(),sportLicenceNo.getText().toString(),sportCurrentDate.getText().toString(),
                 sportHeight.getText().toString(),sportWeight.getText().toString(),sportPeriodicValue.getText().toString(),spinnerPosition.toString());
+                */
+        SportPlayer player = new SportPlayer(sportName.getText().toString(),sportSurname.getText().toString()
+                ,sportBirthday.getText().toString(),sportTckNo.getText().toString(),sportPhone.getText().toString(),
+                sportClub.getText().toString(),sportLicenceNo.getText().toString(),sportCurrentDate.getText().toString(),
+                sportHeight.getText().toString(),sportWeight.getText().toString(),sportPeriodicValue.getText().toString(),periodicEnumTypeValue.toString());
         SportPlayer playerSingle = new SportPlayer(sportName.getText().toString());
         System.out.println("player :"+player.getPlayerName());
         data_source.createPlayer(player);
