@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class Sqlite_Layer extends SQLiteOpenHelper {
+
     public enum SqlCommandEnum{
         DATABASENAME("players"),
         DBPLAYERID("id"),

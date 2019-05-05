@@ -1,6 +1,7 @@
 package app.sparktest1;
 
-public class SportPlayer { private int playerId;
+public class SportPlayer {
+    private int playerId;
     private String playerName;
     private String playerSurname;
     private String playerBirthday;
@@ -11,6 +12,24 @@ public class SportPlayer { private int playerId;
     private String playerCurrentDate;
     private String playerHeight;
     private String playerWeight;
+    private String playerPeriodicValue;
+    private String playerPeriodicValueType;
+
+    public String getPlayerPeriodicValue() {
+        return playerPeriodicValue;
+    }
+
+    public void setPlayerPeriodicValue(String playerPeriodicValue) {
+        this.playerPeriodicValue = playerPeriodicValue;
+    }
+
+    public String getPlayerPeriodicValueType() {
+        return playerPeriodicValueType;
+    }
+
+    public void setPlayerPeriodicValueType(String playerPeriodicValueType) {
+        this.playerPeriodicValueType = playerPeriodicValueType;
+    }
 
     public SportPlayer(int playerId, String playerName, String playerSurname, String playerBirthday, String playerTckNo, String playerPhone, String playerClub, String playerLicenseNo, String playerCurrentDate, String playerHeight, String playerWeight) {
         this.playerId = playerId;
@@ -25,7 +44,6 @@ public class SportPlayer { private int playerId;
         this.playerHeight = playerHeight;
         this.playerWeight = playerWeight;
     }
-
     public SportPlayer(String playerName, String playerSurname, String playerBirthday, String playerTckNo, String playerPhone, String playerClub, String playerLicenseNo, String playerCurrentDate, String playerHeight, String playerWeight) {
         this.playerName = playerName;
         this.playerSurname = playerSurname;
@@ -37,12 +55,32 @@ public class SportPlayer { private int playerId;
         this.playerCurrentDate = playerCurrentDate;
         this.playerHeight = playerHeight;
         this.playerWeight = playerWeight;
+
+    }
+    public SportPlayer(String playerName, String playerSurname, String playerBirthday, String playerTckNo, String playerPhone, String playerClub, String playerLicenseNo, String playerCurrentDate, String playerHeight, String playerWeight,String playerPeriodicValue,String  playerPeriodicValueType) {
+        this.playerName = playerName;
+        this.playerSurname = playerSurname;
+        this.playerBirthday = playerBirthday;
+        this.playerTckNo = playerTckNo;
+        this.playerPhone = playerPhone;
+        this.playerClub = playerClub;
+        this.playerLicenseNo = playerLicenseNo;
+        this.playerCurrentDate = playerCurrentDate;
+        this.playerHeight = playerHeight;
+        this.playerWeight = playerWeight;
+        this.playerPeriodicValue = playerPeriodicValue;
+        this.playerPeriodicValueType =  playerPeriodicValueType;
     }
 
     public SportPlayer(String playerName,String playerSurname ,int playerId){
         this.playerName = playerName;
         this.playerSurname = playerSurname;
         this.playerId = playerId;
+    }
+    public SportPlayer(String playerCurrentDate,String playerPeriodicValue,String playerPeriodicValueType ){
+        this.playerCurrentDate = playerCurrentDate;
+        this.playerPeriodicValue = playerPeriodicValue;
+        this.playerPeriodicValueType = playerPeriodicValueType;
     }
     public SportPlayer(String playerName){
         this.playerName = playerName;

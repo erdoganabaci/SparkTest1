@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SqliteData_Source {
+
     //kullanıcı ile sqlite_kaynağı arasında köprü görevi görecek aldığım kullanici verilerini
     // db eklicem main activity de alıp göstericek listviewda
     SQLiteDatabase db;//kütüphaneden gelen verileri kullanıyoruz
@@ -57,13 +58,18 @@ public class SqliteData_Source {
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr(),player.getPlayerHeight());
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr(),player.getPlayerWeight());
 
-        //db.insert(Sqlite_Layer.SqlCommandEnum.DATABASENAME.databaseAttr(),null,val); 
+        //db.insert(Sqlite_Layer.SqlCommandEnum.DATABASENAME.databaseAttr(),null,val);
         int dbPlayerId = (int) db.insert(Sqlite_Layer.SqlCommandEnum.DATABASENAME.databaseAttr(),null,val);
         ContentValues val2 = new ContentValues();
-        val2.put("playerdate","23/07/1997");
+       /* val2.put("playerdate","23/07/1997");
         val2.put("playervalue",180);
         val2.put("playervaluetype",1);
-        val2.put("playerid",dbPlayerId);
+        val2.put("playerid",dbPlayerId);*/
+       val2.put("playerdate",player.getPlayerCurrentDate());
+       val2.put("playervalue",Float.parseFloat(player.getPlayerPeriodicValue()));
+       val2.put("playervaluetype",Integer.parseInt(player.getPlayerPeriodicValueType()));
+       val2.put("playerid",dbPlayerId);
+
         db.insert("periodic",null,val2);
 
     }
@@ -87,6 +93,14 @@ public class SqliteData_Source {
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr(),player.getPlayerWeight());
         //update player id's rows
         db.update(Sqlite_Layer.SqlCommandEnum.DATABASENAME.databaseAttr(),val,Sqlite_Layer.SqlCommandEnum.DBPLAYERID.databaseAttr()+"="+player.getPlayerId(),null);
+        //güncellleme yaparken periodic tablosuna insert edicez.Çünkü periodic tablosuna devamlı kayıt eklenicek sorgulamada max date olanı çekicez.
+        ContentValues val2 = new ContentValues();
+        val2.put("playerdate",player.getPlayerCurrentDate());
+        val2.put("playervalue",Float.parseFloat(player.getPlayerPeriodicValue()));
+        val2.put("playerid",player.getPlayerId());
+        val2.put("playervaluetype",Integer.parseInt(player.getPlayerPeriodicValueType()));
+        db.insert("periodic",null,val2);
+
 
     }
 
@@ -129,6 +143,27 @@ public class SqliteData_Source {
         return playerQueryList;
 
     }
+
+    public List<SportPlayer> queryPeriodicWithId(int id){
+        String periodicColumns [] = {"id","playerdate","playervalue","playerid","playervaluetype"};
+        List<SportPlayer> periodicQueryList = new ArrayList<>();
+        Cursor cursor = db.query("periodic",periodicColumns,"playerid="+id,null,null,null,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            int periodicId = cursor.getInt(0);
+            String periodicDate = cursor.getString(1);
+            Float periodicValue = cursor.getFloat(2);
+            int playerId = cursor.getInt(3);
+            int periodicValueType = cursor.getInt(4);
+
+            SportPlayer periodicPlayer = new SportPlayer(periodicDate,periodicValue.toString(),Integer.toString(periodicValueType));
+            periodicQueryList.add(periodicPlayer);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return  periodicQueryList;
+    }
+
 
     public List<SportPlayer> listPlayer(){
         /*String playerColumns [] = {"id","playername","playersurname","playerbirthday",

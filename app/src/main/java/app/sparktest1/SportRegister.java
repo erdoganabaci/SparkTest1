@@ -18,6 +18,12 @@ import android.widget.Toast;
 import java.util.List;
 
 public class SportRegister extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    public enum periodicValueType{
+        //boy kilo enumaration bunu spinner item position ile kontrol ettircez
+        HEIGHT,
+        WEIGHT
+
+    }
     EditText sportName;
     EditText sportSurname;
     EditText sportBirthday;
@@ -28,6 +34,7 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
     EditText sportCurrentDate;
     EditText sportHeight;
     EditText sportWeight;
+    EditText sportPeriodicValue;
     Button saveButton;
     Button updateButton;
     Spinner sportSpinner;
@@ -36,6 +43,7 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
     int playerIDFromIntent;
     MenuInflater menuInflater;
     String info;
+    Integer spinnerPosition;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (info.equalsIgnoreCase("show")){
@@ -70,6 +78,7 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
         sportCurrentDate = findViewById(R.id.SportCurrentDate);
         sportHeight = findViewById(R.id.SportHeight);
         sportWeight = findViewById(R.id.SportWeight);
+        sportPeriodicValue = findViewById(R.id.SportPeriodicValue);
         saveButton = findViewById(R.id.save);
         updateButton = findViewById(R.id.update);
         sportSpinner = findViewById(R.id.SpinnerPlayer);
@@ -84,6 +93,7 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
         sportCurrentDate.setText("");
         sportHeight.setText("");
         sportWeight.setText("");
+        sportPeriodicValue.setText("");
 
         //using spinner function
         getSpinner(getApplicationContext());
@@ -125,10 +135,11 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
         sportSpinner.setOnItemSelectedListener(this);
     }
     public void save(View view){
+
         SportPlayer player = new SportPlayer(sportName.getText().toString(),sportSurname.getText().toString()
                 ,sportBirthday.getText().toString(),sportTckNo.getText().toString(),sportPhone.getText().toString(),
                 sportClub.getText().toString(),sportLicenceNo.getText().toString(),sportCurrentDate.getText().toString(),
-                sportHeight.getText().toString(),sportWeight.getText().toString());
+                sportHeight.getText().toString(),sportWeight.getText().toString(),sportPeriodicValue.getText().toString(),spinnerPosition.toString());
         SportPlayer playerSingle = new SportPlayer(sportName.getText().toString());
         System.out.println("player :"+player.getPlayerName());
         data_source.createPlayer(player);
@@ -165,14 +176,19 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
             sportWeight.setText(playerQuery.getPlayerWeight());
 
         }
-
+        List<SportPlayer> periodicPlayer = data_source.queryPeriodicWithId(id);
+        for (SportPlayer periodicSinglePlayers : periodicPlayer){
+            sportSpinner.setSelection(Integer.parseInt(periodicSinglePlayers.getPlayerPeriodicValueType()));
+            sportPeriodicValue.setText(periodicSinglePlayers.getPlayerPeriodicValue());
+        }
     }
 
     public void playerUpdate(){
         SportPlayer playerUpdate = new SportPlayer(sportName.getText().toString(),sportSurname.getText().toString()
                 ,sportBirthday.getText().toString(),sportTckNo.getText().toString(),sportPhone.getText().toString(),
                 sportClub.getText().toString(),sportLicenceNo.getText().toString(),sportCurrentDate.getText().toString(),
-                sportHeight.getText().toString(),sportWeight.getText().toString());
+                sportHeight.getText().toString(),sportWeight.getText().toString(),sportPeriodicValue.getText().toString(),spinnerPosition.toString());
+        //update için sorgulama ama databasede eklenen id ile yapıyoruz.
         playerUpdate.setPlayerId(playerIDFromIntent);
         data_source.updatePlayer(playerUpdate);
         Intent intent = new Intent(this,MainActivity.class);
@@ -191,7 +207,8 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG).show();
+        spinnerPosition = parent.getSelectedItemPosition();
+        Toast.makeText(getApplicationContext(),text+spinnerPosition.toString(),Toast.LENGTH_LONG).show();
     }
 
     @Override
