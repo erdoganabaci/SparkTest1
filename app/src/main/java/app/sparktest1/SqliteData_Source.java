@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class SqliteData_Source {
     public void closeDatabase(){
         mydb.close();
     }
-    public void createPlayer(SportPlayer player){
+    public void createPlayer(SportPlayer player,Context context){
         String sql = "CREATE TABLE IF NOT EXISTS players (id INT PRIMARY KEY AUTOINCREMENT , " +
                 "playername VARCHAR , playersurname VARCHAR  , playerbirthday VARCHAR,playertckno VARCHAR," +
                 "playerphone VARCHAR,playerclub VARCHAR,playerlicenseno VARCHAR,playercurrentdate VARCHAR,playerheight VARCHAR," +
@@ -50,10 +51,14 @@ public class SqliteData_Source {
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERNAME.databaseAttr(),player.getPlayerName());
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERSURNAME.databaseAttr(),player.getPlayerSurname());
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERBIRTHDAY.databaseAttr(),player.getPlayerBirthday());
-        val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERTCKNO.databaseAttr(),player.getPlayerTckNo());
-        val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERPHONE.databaseAttr(),player.getPlayerPhone());
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERCLUB.databaseAttr(),player.getPlayerClub());
-        val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr(),player.getPlayerLicenseNo());
+       try {
+           val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr(),Integer.parseInt(player.getPlayerLicenseNo()));
+           val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERTCKNO.databaseAttr(),Integer.parseInt(player.getPlayerTckNo()));
+           val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERPHONE.databaseAttr(),Integer.parseInt(player.getPlayerPhone()));
+       }catch (Exception e){
+           Toast.makeText(context,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+       }
         //val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr(),player.getPlayerCurrentDate());
        // val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr(),player.getPlayerHeight());
         //val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr(),player.getPlayerWeight());
@@ -65,15 +70,22 @@ public class SqliteData_Source {
         val2.put("playervalue",180);
         val2.put("playervaluetype",1);
         val2.put("playerid",dbPlayerId);*/
-       val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICDATE.databaseAttr(),player.getPlayerCurrentDate());
-       val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICVALUE.databaseAttr(),Float.parseFloat(player.getPlayerPeriodicValue()));
-       val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICVALUETYPE.databaseAttr(),Integer.parseInt(player.getPlayerPeriodicValueType()));
-       val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICPLAYERID.databaseAttr(),dbPlayerId);
+       try {
 
-        db.insert("periodic",null,val2);
+       }catch (Exception e){
+           //numara dışı girerse ekleme yapmayıp hatayı gösteriyoruz
+           val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICDATE.databaseAttr(),player.getPlayerCurrentDate());
+           val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICVALUE.databaseAttr(),Float.parseFloat(player.getPlayerPeriodicValue()));
+           val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICVALUETYPE.databaseAttr(),Integer.parseInt(player.getPlayerPeriodicValueType()));
+           val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICPLAYERID.databaseAttr(),dbPlayerId);
 
+           db.insert(Sqlite_Layer.SqlCommandEnum.DATABASEPERIODICNAME.databaseAttr(),null,val2);
+
+       }
+
+        //db.insert("periodic",null,val2);
     }
-    public void updatePlayer(SportPlayer player){
+    public void updatePlayer(SportPlayer player,Context context){
         String sql = "CREATE TABLE IF NOT EXISTS players (id INT PRIMARY KEY AUTOINCREMENT , " +
                 "playername VARCHAR , playersurname VARCHAR  , playerbirthday VARCHAR,playertckno VARCHAR," +
                 "playerphone VARCHAR,playerclub VARCHAR,playerlicenseno VARCHAR,playercurrentdate VARCHAR,playerheight VARCHAR," +
@@ -84,10 +96,18 @@ public class SqliteData_Source {
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERNAME.databaseAttr(),player.getPlayerName());
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERSURNAME.databaseAttr(),player.getPlayerSurname());
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERBIRTHDAY.databaseAttr(),player.getPlayerBirthday());
-        val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERTCKNO.databaseAttr(),player.getPlayerTckNo());
-        val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERPHONE.databaseAttr(),player.getPlayerPhone());
         val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERCLUB.databaseAttr(),player.getPlayerClub());
-        val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr(),player.getPlayerLicenseNo());
+
+        try {
+            //eğer kullanıcı string girerse çökmesin diye
+            val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERTCKNO.databaseAttr(),Integer.parseInt(player.getPlayerTckNo()));
+            val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERPHONE.databaseAttr(),Integer.parseInt(player.getPlayerPhone()));
+            val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr(),Integer.parseInt(player.getPlayerLicenseNo()));
+
+        }catch (Exception e){
+            Toast.makeText(context,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+
+        }
         //güncel zamanı sadece periodic tablosuna ekliyoruz
        // val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr(),player.getPlayerCurrentDate());
         //val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr(),player.getPlayerHeight());
@@ -102,12 +122,21 @@ public class SqliteData_Source {
         val2.put("playerid",player.getPlayerId());
         val2.put("playervaluetype",Integer.parseInt(player.getPlayerPeriodicValueType()));
         */
-        val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICDATE.databaseAttr(),player.getPlayerCurrentDate());
-        val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICVALUE.databaseAttr(),Float.parseFloat(player.getPlayerPeriodicValue()));
-        val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICVALUETYPE.databaseAttr(),Integer.parseInt(player.getPlayerPeriodicValueType()));
-        val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICPLAYERID.databaseAttr(),player.getPlayerId());
+
+        try {
+            //kullanıcı değeri yanlış girerse
+            val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICDATE.databaseAttr(),player.getPlayerCurrentDate());
+            val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICVALUETYPE.databaseAttr(),Integer.parseInt(player.getPlayerPeriodicValueType()));
+            val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICPLAYERID.databaseAttr(),player.getPlayerId());
+            val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICVALUE.databaseAttr(),Float.parseFloat(player.getPlayerPeriodicValue()));
+
+            db.insert(Sqlite_Layer.SqlCommandEnum.DATABASEPERIODICNAME.databaseAttr(),null,val2);
+
+        }catch (Exception e){
+            Toast.makeText(context,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+        }
         //db.insert("periodic",null,val2);
-        db.insert(Sqlite_Layer.SqlCommandEnum.DATABASEPERIODICNAME.databaseAttr(),null,val2);
+
 
 
     }

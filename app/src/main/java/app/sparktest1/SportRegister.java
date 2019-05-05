@@ -159,7 +159,7 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
 
        SportPlayer playerSingle = new SportPlayer(sportName.getText().toString());
         System.out.println("player :"+player.getPlayerName());
-        data_source.createPlayer(player);
+        data_source.createPlayer(player,this);
         //data_source.createPlayer(player);
         //when you add player to database change page to mainactivity's listview
         //dataları periodic tablosuna ekledim.
@@ -184,10 +184,11 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
             sportName.setText(playerQuery.getPlayerName());
             sportSurname.setText(playerQuery.getPlayerSurname());
             sportBirthday.setText(playerQuery.getPlayerBirthday());
-            sportTckNo.setText(playerQuery.getPlayerTckNo());
-            sportPhone.setText(playerQuery.getPlayerPhone());
             sportClub.setText(playerQuery.getPlayerClub());
             sportLicenceNo.setText(playerQuery.getPlayerLicenseNo());
+            sportTckNo.setText(playerQuery.getPlayerTckNo());
+            sportPhone.setText(playerQuery.getPlayerPhone());
+
             //sportCurrentDate.setText(playerQuery.getPlayerCurrentDate());  güncel tarihi periyodik tablosundan çekicez.
             //sportHeight.setText(playerQuery.getPlayerHeight());
             //sportWeight.setText(playerQuery.getPlayerWeight());
@@ -213,7 +214,7 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
                 sportPeriodicValue.getText().toString(),spinnerPosition.toString());
         //update için sorgulama ama databasede eklenen id ile yapıyoruz.
         playerUpdate.setPlayerId(playerIDFromIntent);
-        data_source.updatePlayer(playerUpdate);
+        data_source.updatePlayer(playerUpdate,getApplicationContext());
         Intent intent = new Intent(this,MainActivity.class);
         Toast.makeText(getApplicationContext(),"Database Başarıyla Sporcu Güncellendi.",Toast.LENGTH_SHORT).show();
         startActivity(intent);

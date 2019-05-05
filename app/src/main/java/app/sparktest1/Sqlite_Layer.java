@@ -65,10 +65,15 @@ public class Sqlite_Layer extends SQLiteOpenHelper {
                 " VARCHAR,"+SqlCommandEnum.DBPLAYERCLUB.databaseAttr+" VARCHAR,"+SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr+" VARCHAR,"+SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr+
                 " VARCHAR,"+SqlCommandEnum.DBPLAYERHEIGHT.databaseAttr+" VARCHAR," + SqlCommandEnum.DBPLAYERWEIGHT.databaseAttr+" VARCHAR)";*/
        //player tablosundan weight ile boy kolonu çıkarıldı bide current date de çıkarıldı
-        String sql = "CREATE TABLE IF NOT EXISTS "+ SqlCommandEnum.DATABASENAME.databaseAttr+"("+SqlCommandEnum.DBPLAYERID.databaseAttr+" INTEGER PRIMARY KEY AUTOINCREMENT , "
+       /* String sql = "CREATE TABLE IF NOT EXISTS "+ SqlCommandEnum.DATABASENAME.databaseAttr+"("+SqlCommandEnum.DBPLAYERID.databaseAttr+" INTEGER PRIMARY KEY AUTOINCREMENT , "
                 +SqlCommandEnum.DBPLAYERNAME.databaseAttr+" VARCHAR NOT NULL, "+SqlCommandEnum.DBPLAYERSURNAME.databaseAttr+" VARCHAR  , "+SqlCommandEnum.DBPLAYERBIRTHDAY.databaseAttr+
                 " VARCHAR,"+SqlCommandEnum.DBPLAYERTCKNO.databaseAttr+" VARCHAR," + SqlCommandEnum.DBPLAYERPHONE.databaseAttr+
-                " VARCHAR,"+SqlCommandEnum.DBPLAYERCLUB.databaseAttr+" VARCHAR,"+SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr+" VARCHAR)";
+                " VARCHAR,"+SqlCommandEnum.DBPLAYERCLUB.databaseAttr+" VARCHAR,"+SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr+" VARCHAR)";*/
+       //player tablosundaki tablo cinsini varchardan integera çevirdiğim yer tckno,phone ve licenceno bunlar integer tipinde.
+        String sql = "CREATE TABLE IF NOT EXISTS "+ SqlCommandEnum.DATABASENAME.databaseAttr+"("+SqlCommandEnum.DBPLAYERID.databaseAttr+" INTEGER PRIMARY KEY AUTOINCREMENT , "
+                +SqlCommandEnum.DBPLAYERNAME.databaseAttr+" VARCHAR NOT NULL, "+SqlCommandEnum.DBPLAYERSURNAME.databaseAttr+" VARCHAR  , "+SqlCommandEnum.DBPLAYERBIRTHDAY.databaseAttr+
+                " VARCHAR,"+SqlCommandEnum.DBPLAYERTCKNO.databaseAttr+" INTEGER," + SqlCommandEnum.DBPLAYERPHONE.databaseAttr+
+                " INTEGER,"+SqlCommandEnum.DBPLAYERCLUB.databaseAttr+" VARCHAR,"+SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr+" INTEGER)";
         db.execSQL(sql);
 
         //String sql2 = "CREATE TABLE IF NOT EXISTS periodic (id INTEGER PRIMARY KEY AUTOINCREMENT ,playerdate VARCHAR,playervalue FLOAT ,playerid INTEGER,playervaluetype INTEGER,FOREIGN KEY(playerid) REFERENCES players(id) )";

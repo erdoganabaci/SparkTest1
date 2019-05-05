@@ -85,20 +85,20 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:hint="Sporcu İstenilen Değer" />
-        <EditText
-            android:id="@+id/SportHeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Sporcu Boyu" />
-        <EditText
-            android:id="@+id/SportWeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Sporcu Ağırlığı" />
+        <!--<EditText-->
+            <!--android:id="@+id/SportHeight"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:ems="10"-->
+            <!--android:inputType="textPersonName"-->
+            <!--android:hint="Sporcu Boyu" />-->
+        <!--<EditText-->
+            <!--android:id="@+id/SportWeight"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:ems="10"-->
+            <!--android:inputType="textPersonName"-->
+            <!--android:hint="Sporcu Ağırlığı" />-->
 
 
         <LinearLayout
