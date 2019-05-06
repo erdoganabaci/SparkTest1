@@ -27,13 +27,17 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:hint="Sporcu Soyadı" />
-        <EditText
+
+        <TextView
             android:id="@+id/SportBirthday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="213dp"
+            android:layout_height="36dp"
             android:ems="10"
+            android:gravity="center"
+            android:hint="Sporcu Doğum Yılı"
             android:inputType="textPersonName"
-            android:hint="Sporcu Doğum Yılı" />
+            android:onClick="BirthDatePicker"
+            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/SportTckNo"
@@ -48,7 +52,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Phone(555 555 55 55)" />
+            android:hint="Phone(5555555555)" />
         <EditText
             android:id="@+id/SportClub"
             android:layout_width="wrap_content"
@@ -63,28 +67,40 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:hint="Sporcu Lisans Numarası" />
-        <EditText
-            android:id="@+id/SportCurrentDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Boy Kilo En Son Tarihi" />
 
-        <Spinner
-            android:id="@+id/SpinnerPlayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/SportCurrentDate"
+            android:layout_width="213dp"
+            android:layout_height="36dp"
+            android:textAlignment="center"
+            android:gravity="center"
             android:ems="10"
+            android:hint="Boy Kilo En Son Tarihi"
             android:inputType="textPersonName"
-            android:hint="Sporcu Boyu" />
-        <EditText
-            android:id="@+id/SportPeriodicValue"
-            android:layout_width="wrap_content"
+            android:onClick="DatePicker" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Sporcu İstenilen Değer" />
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/SpinnerPlayer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:hint="Sporcu Boyu"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/SportPeriodicValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Seçilen Değer"
+                android:inputType="textPersonName" />
+        </LinearLayout>
         <!--<EditText-->
             <!--android:id="@+id/SportHeight"-->
             <!--android:layout_width="wrap_content"-->

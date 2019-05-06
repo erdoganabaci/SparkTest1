@@ -1,7 +1,10 @@
 package app.sparktest1;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,13 +14,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.List;
 
-public class SportRegister extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class SportRegister extends AppCompatActivity implements AdapterView.OnItemSelectedListener,DatePickerDialog.OnDateSetListener {
+    static TextView sportCurrentDate;
+    static TextView sportBirthday;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
     public enum periodicValueType{
         //boy kilo enumaration bunu spinner item position ile kontrol ettircez
         HEIGHT,
@@ -26,12 +36,11 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
     }
     EditText sportName;
     EditText sportSurname;
-    EditText sportBirthday;
     EditText sportTckNo;
     EditText sportPhone;
     EditText sportClub;
     EditText sportLicenceNo;
-    EditText sportCurrentDate;
+
     //EditText sportHeight;
     //EditText sportWeight;
     EditText sportPeriodicValue;
@@ -124,6 +133,34 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
         }
         data_source = new SqliteData_Source(this);
         data_source.openDatabase();
+
+
+
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR,year);
+        c.set(Calendar.MONTH,month);
+        c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+
+
+        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        sportCurrentDate.setText(currentDateString);
+    }
+
+    public void BirthDatePicker(View view){
+        //edittexin sporcu doğum günü onclicki
+        DialogFragment datePicker = new DatePickerFragment();
+        datePicker.show(getSupportFragmentManager() , "date picker");
+
+    }
+    public void DatePicker(View view){
+        //edittexin sporcudeğerin onclicki
+        DialogFragment datePicker = new DatePickerFragment();
+        datePicker.show(getSupportFragmentManager() , "date picker");
+
     }
     public void getSpinner(Context context){
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.ValueType,android.R.layout.simple_spinner_item);
