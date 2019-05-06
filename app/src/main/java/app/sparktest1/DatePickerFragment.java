@@ -20,7 +20,11 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
    /* DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
             this,year,month,day);*/
+   private String flag;
 
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
 
     @NonNull
     @Override
@@ -37,10 +41,13 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         c.set(Calendar.YEAR,year);
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-
-
-        String currentDateString = DateFormat.getDateInstance().format(c.getTime());
-        SportRegister.sportBirthday.setText(currentDateString);
-        SportRegister.sportCurrentDate.setText(currentDateString);
+        month = month +1;
+        String myDateFormat = dayOfMonth + "/" + month + "/" + year;
+        //String currentDateString = DateFormat.getDateInstance().format(c.getTime());
+        if (flag == SportRegister.FLAG_DATE_BIRTHDAY){
+            SportRegister.sportBirthday.setText(myDateFormat);
+        }else if (flag == SportRegister.FLAG_DATE_CURRENT){
+            SportRegister.sportCurrentDate.setText(myDateFormat);
+        }
     }
 }

@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         data_source.openDatabase();
         playerNameAndSurnameArray = new ArrayList<>();
         //kullanıları listeye aldık bunu adaptor ile listviewa bağlıcaz böylece listviewda görünecek.
-        List<SportPlayer> sportPlayers = data_source.listPlayer();
+        final List<SportPlayer> sportPlayers = data_source.listPlayer();
         for(SportPlayer testPlayer : sportPlayers){
             System.out.println("sporcu isimler: "+testPlayer.getPlayerName());
             //playerNameArray.add(testPlayer.getPlayerName());
@@ -96,7 +96,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                adapter.getFilter().filter(charSequence);
+                //adapter.getFilter().filter(charSequence);
+                ArrayList<String> SportPlayerFilterList = new ArrayList<>();
+
+                for (String sportPlayer : playerNameAndSurnameArray){
+                    if (sportPlayer.toLowerCase().contains(charSequence.toString().toLowerCase())){
+                        SportPlayerFilterList.add(sportPlayer);
+                    }
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
+                        android.R.layout.simple_list_item_1,SportPlayerFilterList);
+                listView.setAdapter(adapter);
+
+
             }
 
             @Override

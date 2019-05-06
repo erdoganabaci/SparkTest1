@@ -27,6 +27,8 @@ import java.util.List;
 public class SportRegister extends AppCompatActivity implements AdapterView.OnItemSelectedListener,DatePickerDialog.OnDateSetListener {
     static TextView sportCurrentDate;
     static TextView sportBirthday;
+    public static final String FLAG_DATE_BIRTHDAY = "datePickerBirthday";
+    public static final String FLAG_DATE_CURRENT = "datePicker";
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     public enum periodicValueType{
         //boy kilo enumaration bunu spinner item position ile kontrol ettircez
@@ -140,26 +142,32 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+       //we cant use this because we already used in DatePickerFragment classında
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR,year);
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
 
-
-        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-        sportCurrentDate.setText(currentDateString);
+        //String myDateFormat = dayOfMonth + "/" + month + "/" + year;
+        //String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+       // sportCurrentDate.setText(myDateFormat);
     }
 
     public void BirthDatePicker(View view){
         //edittexin sporcu doğum günü onclicki
         DialogFragment datePicker = new DatePickerFragment();
-        datePicker.show(getSupportFragmentManager() , "date picker");
+        //tarihi hangi picker açmış ona göre güncelle
+        ((DatePickerFragment) datePicker).setFlag(FLAG_DATE_BIRTHDAY);
+        datePicker.show(getSupportFragmentManager() , FLAG_DATE_BIRTHDAY);
 
     }
     public void DatePicker(View view){
         //edittexin sporcudeğerin onclicki
         DialogFragment datePicker = new DatePickerFragment();
-        datePicker.show(getSupportFragmentManager() , "date picker");
+
+        ((DatePickerFragment) datePicker).setFlag(FLAG_DATE_CURRENT);
+
+        datePicker.show(getSupportFragmentManager() ,FLAG_DATE_CURRENT);
 
     }
     public void getSpinner(Context context){

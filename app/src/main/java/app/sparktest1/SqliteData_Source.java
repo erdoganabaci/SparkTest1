@@ -57,6 +57,7 @@ public class SqliteData_Source {
            val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERTCKNO.databaseAttr(),Integer.parseInt(player.getPlayerTckNo()));
            val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERPHONE.databaseAttr(),Integer.parseInt(player.getPlayerPhone()));
        }catch (Exception e){
+          // e.getLocalizedMessage();
            Toast.makeText(context,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
        }
         //val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERCURRENTDATE.databaseAttr(),player.getPlayerCurrentDate());
@@ -71,8 +72,6 @@ public class SqliteData_Source {
         val2.put("playervaluetype",1);
         val2.put("playerid",dbPlayerId);*/
        try {
-
-       }catch (Exception e){
            //numara dışı girerse ekleme yapmayıp hatayı gösteriyoruz
            val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICDATE.databaseAttr(),player.getPlayerCurrentDate());
            val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICVALUE.databaseAttr(),Float.parseFloat(player.getPlayerPeriodicValue()));
@@ -80,6 +79,8 @@ public class SqliteData_Source {
            val2.put(Sqlite_Layer.SqlCommandEnum.DBPERIODICPLAYERID.databaseAttr(),dbPlayerId);
 
            db.insert(Sqlite_Layer.SqlCommandEnum.DATABASEPERIODICNAME.databaseAttr(),null,val2);
+       }catch (Exception e){
+           Toast.makeText(context,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
 
        }
 
@@ -105,6 +106,7 @@ public class SqliteData_Source {
             val.put(Sqlite_Layer.SqlCommandEnum.DBPLAYERLISENCENO.databaseAttr(),Integer.parseInt(player.getPlayerLicenseNo()));
 
         }catch (Exception e){
+            e.getLocalizedMessage();
             Toast.makeText(context,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
 
         }
