@@ -1,6 +1,6 @@
 package app.sparktest1;
 
-public class SportPlayer {
+public class SportPlayer {   //player tekrarı var sil athlete olsun
     private int playerId;
     private String playerName;
     private String playerSurname;

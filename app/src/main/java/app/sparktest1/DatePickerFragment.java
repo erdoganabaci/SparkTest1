@@ -13,15 +13,18 @@ import java.text.DateFormat;
 import java.util.Calendar;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+    //runnable kullanarak değişken ata ve kullan
     Calendar c = Calendar.getInstance();
     int year = c.get(Calendar.YEAR);
     int month = c.get(Calendar.MONTH);
     int day = c.get(Calendar.DAY_OF_MONTH);
 
+
    /* DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
             this,year,month,day);*/
    private String flag;
-
+    public Runnable OnDataSetEvent;
+    public static  String myDateFormat;
     public void setFlag(String flag) {
         this.flag = flag;
     }
@@ -42,12 +45,20 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
         month = month +1;
-        String myDateFormat = dayOfMonth + "/" + month + "/" + year;
+        myDateFormat = dayOfMonth + "." + month + "." + year;
+        if (OnDataSetEvent != null ){
+
+            OnDataSetEvent.run();
+
+        }
         //String currentDateString = DateFormat.getDateInstance().format(c.getTime());
-        if (flag == SportRegister.FLAG_DATE_BIRTHDAY){
+       /* if (flag == SportRegister.FLAG_DATE_BIRTHDAY){
             SportRegister.sportBirthday.setText(myDateFormat);
         }else if (flag == SportRegister.FLAG_DATE_CURRENT){
             SportRegister.sportCurrentDate.setText(myDateFormat);
-        }
+        }*/
+
+
+
     }
 }

@@ -152,7 +152,7 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
         //String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
        // sportCurrentDate.setText(myDateFormat);
     }
-
+/*
     public void BirthDatePicker(View view){
         //edittexin sporcu doğum günü onclicki
         DialogFragment datePicker = new DatePickerFragment();
@@ -169,7 +169,37 @@ public class SportRegister extends AppCompatActivity implements AdapterView.OnIt
 
         datePicker.show(getSupportFragmentManager() ,FLAG_DATE_CURRENT);
 
+    }*/
+    public void BirthDatePicker(View view){
+        //edittexin sporcu doğum günü onclicki
+        DialogFragment datePicker = new DatePickerFragment();
+        //tarihi hangi picker açmış ona göre güncelle
+        // ((DatePickerFragment) datePicker).setFlag(FLAG_DATE_BIRTHDAY);
+        ((DatePickerFragment) datePicker).OnDataSetEvent = new Runnable() {
+            @Override
+            public void run() {
+                SportRegister.sportBirthday.setText(DatePickerFragment.myDateFormat);
+            }
+        };
+
+        datePicker.show(getSupportFragmentManager() , FLAG_DATE_BIRTHDAY);
+
     }
+        public void DatePicker(View view){
+            //edittexin sporcudeğerin onclicki
+            DialogFragment datePicker = new DatePickerFragment();
+
+            // ((DatePickerFragment) datePicker).setFlag(FLAG_DATE_CURRENT);
+            ((DatePickerFragment) datePicker).OnDataSetEvent = new Runnable() {
+                @Override
+                public void run() {
+                    SportRegister.sportCurrentDate.setText(DatePickerFragment.myDateFormat);
+                }
+            };
+
+            datePicker.show(getSupportFragmentManager() ,FLAG_DATE_CURRENT);
+
+        }
     public void getSpinner(Context context){
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.ValueType,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
